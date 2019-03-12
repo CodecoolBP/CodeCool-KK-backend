@@ -23,4 +23,25 @@ public class User {
         this.lastName = lastName;
         this.discount = discount;
     }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public Discount getDiscount() {
+        return discount;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", discount=" + discount +
+                '}';
+    }
 }
