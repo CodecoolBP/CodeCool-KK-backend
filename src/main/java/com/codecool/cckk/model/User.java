@@ -4,13 +4,15 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Component
 public class User {
-    private int id;
+    private UUID id = UUID.randomUUID();
     private String firstName;
     private String lastName;
     private String email;
+    private String hashedPassword;
     private Discount discount;
     private PassType passType;
     private List<Trip> trips = new ArrayList<>();
@@ -22,6 +24,10 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.discount = discount;
+    }
+
+    public UUID getId() {
+        return id;
     }
 
     public String getFirstName() {
