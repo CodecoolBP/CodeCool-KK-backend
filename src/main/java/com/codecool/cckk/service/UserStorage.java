@@ -17,8 +17,7 @@ public class UserStorage {
         return users;
     }
 
-    @Autowired
-    public UserStorage(UserCreator userCreator) {
+    public UserStorage(@Autowired UserCreator userCreator) {
         this.userCreator = userCreator;
     }
 
