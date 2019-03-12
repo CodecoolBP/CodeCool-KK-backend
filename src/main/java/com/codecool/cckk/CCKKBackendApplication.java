@@ -1,6 +1,6 @@
 package com.codecool.cckk;
 
-import com.codecool.cckk.service.UserCreator;
+import com.codecool.cckk.model.User;
 import com.codecool.cckk.service.UserStorage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import javax.annotation.PostConstruct;
+import java.util.List;
 
 @SpringBootApplication
 public class CCKKBackendApplication {
@@ -27,13 +28,17 @@ public class CCKKBackendApplication {
     @Bean
     public CommandLineRunner init() {
         return (String... args) -> {
-            UserStorage.addPremadeUser();
+            UserStorage.addPremadeUsers();
         };
     }
 
     @PostConstruct
-    public void afterInit(){
-        LOGGER.info(userStorage.getUsers().toString());
+    public void afterInit() {
+        List<User> users = userStorage.getUsers();
+        for (User user :
+                users) {
+            LOGGER.info(user.toString());
+        }
     }
 
 }
