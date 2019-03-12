@@ -17,7 +17,7 @@ public class UserController {
     private UserStorage userStorage;
 
     @GetMapping
-    public List<User> getUsers(){
+    public List<User> getUsers() {
         return userStorage.getUsers();
     }
 }

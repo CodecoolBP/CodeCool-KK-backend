@@ -1,6 +1,5 @@
 package com.codecool.cckk;
 
-import com.codecool.cckk.model.User;
 import com.codecool.cckk.service.UserStorage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
