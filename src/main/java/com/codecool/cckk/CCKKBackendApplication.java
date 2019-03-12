@@ -10,9 +10,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import javax.annotation.PostConstruct;
-import java.util.List;
-
 @SpringBootApplication
 public class CCKKBackendApplication {
 
@@ -28,17 +25,9 @@ public class CCKKBackendApplication {
     @Bean
     public CommandLineRunner init() {
         return (String... args) -> {
-            UserStorage.addPremadeUsers();
+            userStorage.addPremadeUsers();
+            LOGGER.info(userStorage.toString());
         };
-    }
-
-    @PostConstruct
-    public void afterInit() {
-        List<User> users = userStorage.getUsers();
-        for (User user :
-                users) {
-            LOGGER.info(user.toString());
-        }
     }
 
 }

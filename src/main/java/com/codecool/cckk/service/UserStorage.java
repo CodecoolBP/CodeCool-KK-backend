@@ -21,10 +21,19 @@ public class UserStorage {
         this.userCreator = userCreator;
     }
 
-    public static void addPremadeUsers() {
+    public void addPremadeUsers() {
         users.add(new User("John", "Doe", Discount.FULL_PRICE));
         users.add(new User("Jane", "Doe", Discount.RETIRED));
         users.add(new User("Junior", "Doe", Discount.STUDENT));
     }
 
+    @Override
+    public String toString() {
+        String result = "";
+        for (User user :
+                users) {
+            result += user.toString() + " ";
+        }
+        return result;
+    }
 }
