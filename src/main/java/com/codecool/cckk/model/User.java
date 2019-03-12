@@ -16,6 +16,7 @@ public class User {
     private Discount discount;
     private PassType passType;
     private List<Trip> trips = new ArrayList<>();
+    private Card card;
 
     public User() {
     }
