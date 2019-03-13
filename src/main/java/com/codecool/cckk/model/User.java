@@ -1,12 +1,9 @@
 package com.codecool.cckk.model;
 
-import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@Component
 public class User {
     private UUID id = UUID.randomUUID();
     private String firstName;

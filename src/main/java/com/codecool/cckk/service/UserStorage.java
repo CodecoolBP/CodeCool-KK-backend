@@ -10,6 +10,7 @@ import java.util.List;
 
 @Service
 public class UserStorage {
+
     private UserCreator userCreator;
     private static List<User> users = new ArrayList<>();
 
@@ -17,7 +18,8 @@ public class UserStorage {
         return users;
     }
 
-    public UserStorage(@Autowired UserCreator userCreator) {
+    @Autowired
+    public UserStorage(UserCreator userCreator) {
         this.userCreator = userCreator;
     }
 
