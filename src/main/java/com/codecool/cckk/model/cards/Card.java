@@ -1,4 +1,4 @@
-package com.codecool.cckk.model;
+package com.codecool.cckk.model.cards;
 
 public abstract class Card {
 
