@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserCreator {
     public static User createUser() {
-        return new User("John", "Doe", Discount.FULL_PRICE);
+        //TODO: register
+        return null;
     }
 }
