@@ -1,44 +1,56 @@
 package com.codecool.cckk.model;
 
 import com.codecool.cckk.model.cards.Card;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class User {
-    private UUID id = UUID.randomUUID();
+
+@Data
+@Entity
+@AllArgsConstructor
+public class CckkUser {
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
     @NotEmpty
     private String firstName;
     @NotEmpty
     private String lastName;
     private String email;
     private String hashedPassword;
-    private Discount discount;
-    private PassType passType;
-    private List<Trip> trips = new ArrayList<>();
-    private List<Card> myCards = new ArrayList<>();
 
-    public User() {
+//    private Discount discount;
+//    private PassType passType;
+
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "user")
+    private List<Trip> trips = new ArrayList<>();
+//    private List<Card> myCards = new ArrayList<>();
+
+    public CckkUser() {
     }
 
-    public User(String firstName, String lastName, Discount discount) {
+    public CckkUser(String firstName, String lastName, Discount discount) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.discount = discount;
+//        this.discount = discount;
     }
 
-    public User(String firstName, String lastName, String email, String hashedPassword, Discount discount) {
+    public CckkUser(String firstName, String lastName, String email, String hashedPassword, Discount discount) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.hashedPassword = hashedPassword;
-        this.discount = discount;
-    }
-
-    public UUID getId() {
-        return id;
+//        this.discount = discount;
     }
 
     public String getFirstName() {
@@ -49,9 +61,9 @@ public class User {
         return lastName;
     }
 
-    public Discount getDiscount() {
-        return discount;
-    }
+//    public Discount getDiscount() {
+//        return discount;
+//    }
 
     public String getEmail() {
         return email;
@@ -61,30 +73,26 @@ public class User {
         return hashedPassword;
     }
 
-    public PassType getPassType() {
-        return passType;
-    }
+//    public PassType getPassType() {
+//        return passType;
+//    }
 
-    public List<Trip> getTrips() {
-        return trips;
-    }
-
-    public List<Card> getMyCards() {
-        return myCards;
-    }
+//    public List<Trip> getTrips() {
+//        return trips;
+//    }
 
     @Override
     public String toString() {
-        return "User{" +
+        return "CckkUser{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", hashedPassword='" + hashedPassword + '\'' +
-                ", discount=" + discount +
-                ", passType=" + passType +
-                ", trips=" + trips +
-                ", myCards=" + myCards +
+//                ", discount=" + discount +
+//                ", passType=" + passType +
+//                ", trips=" + trips +
+//                ", myCards=" + myCards +
                 '}';
     }
 }
