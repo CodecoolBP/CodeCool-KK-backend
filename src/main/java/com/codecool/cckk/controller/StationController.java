@@ -1,12 +1,12 @@
 package com.codecool.cckk.controller;
 
+import com.codecool.cckk.model.ReturnMessage;
 import com.codecool.cckk.model.station.Station;
 import com.codecool.cckk.service.StationStorage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -20,6 +20,11 @@ public class StationController {
     @GetMapping("/list")
     public List<Station> getStations() {
         return stationStorage.getStations();
+    }
+
+    @PostMapping("/add")
+    public ReturnMessage addStation(@RequestBody @Valid Station station) {
+        return stationStorage.addStation(station);
     }
 
 
