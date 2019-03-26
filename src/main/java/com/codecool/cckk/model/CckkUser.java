@@ -28,6 +28,8 @@ public class CckkUser {
     private String email;
     private String hashedPassword;
 
+    private Discount discount;
+
     @OneToMany(cascade = CascadeType.ALL,
             mappedBy = "user",
             orphanRemoval = true)
@@ -37,6 +39,7 @@ public class CckkUser {
     public CckkUser(String firstName, String lastName, Discount discount) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.discount = discount;
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.codecool.cckk.model.trips;
 
 import com.codecool.cckk.model.CckkUser;
 //import com.codecool.cckk.model.Station;
+import com.codecool.cckk.model.Station;
 import com.codecool.cckk.model.VehicleType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,7 +17,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Trip {
-//
+
     @Id
     @GeneratedValue
     private Long id;
@@ -28,8 +29,10 @@ public class Trip {
     private VehicleType vehicleType;
     private int vehicleNumber;
 
-//
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cckk_user_id")
+
+    @ManyToOne
     private CckkUser user;
+
+    @OneToOne
+    private Station fromStation;
 }
