@@ -1,7 +1,11 @@
-package com.codecool.cckk.model;
+package com.codecool.cckk.model.trips;
 
+import com.codecool.cckk.model.CckkUser;
+//import com.codecool.cckk.model.Station;
+import com.codecool.cckk.model.VehicleType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -17,17 +21,15 @@ public class Trip {
     @GeneratedValue
     private Long id;
 
+    @EqualsAndHashCode.Exclude
     private int price = 350;
     private LocalDate journeyStart;
-
-    @ManyToOne
-    private Station fromStation;
-
 
     private VehicleType vehicleType;
     private int vehicleNumber;
 
 //
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cckk_user_id")
     private CckkUser user;
 }

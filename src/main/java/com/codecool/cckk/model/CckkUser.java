@@ -1,21 +1,20 @@
 package com.codecool.cckk.model;
 
-import com.codecool.cckk.model.cards.Card;
+import com.codecool.cckk.model.trips.Trip;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.Set;
 
 
 @Data
 @Entity
 @AllArgsConstructor
+@NoArgsConstructor
 public class CckkUser {
 
     @Id
@@ -29,57 +28,16 @@ public class CckkUser {
     private String email;
     private String hashedPassword;
 
-//    private Discount discount;
-//    private PassType passType;
+    @OneToMany(cascade = CascadeType.ALL,
+            mappedBy = "user",
+            orphanRemoval = true)
+    private Set<Trip> trips;
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "user")
-    private List<Trip> trips = new ArrayList<>();
-//    private List<Card> myCards = new ArrayList<>();
-
-    public CckkUser() {
-    }
 
     public CckkUser(String firstName, String lastName, Discount discount) {
         this.firstName = firstName;
         this.lastName = lastName;
-//        this.discount = discount;
     }
-
-    public CckkUser(String firstName, String lastName, String email, String hashedPassword, Discount discount) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.hashedPassword = hashedPassword;
-//        this.discount = discount;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-//    public Discount getDiscount() {
-//        return discount;
-//    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getHashedPassword() {
-        return hashedPassword;
-    }
-
-//    public PassType getPassType() {
-//        return passType;
-//    }
-
-//    public List<Trip> getTrips() {
-//        return trips;
-//    }
 
     @Override
     public String toString() {
@@ -89,10 +47,6 @@ public class CckkUser {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", hashedPassword='" + hashedPassword + '\'' +
-//                ", discount=" + discount +
-//                ", passType=" + passType +
-//                ", trips=" + trips +
-//                ", myCards=" + myCards +
                 '}';
     }
 }
