@@ -24,9 +24,9 @@ public class StationStorage {
     private List<Station> stations = new ArrayList<>();
 
     public ReturnMessage addStation(Station station) {
+        //TODO check station is exists
         stations.add(station);
         stationRepository.save(station);
-        //TODO check station is exists
         return new ReturnMessage(true, "Add new station success!");
     }
 
