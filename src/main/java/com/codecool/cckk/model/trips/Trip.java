@@ -1,30 +1,29 @@
 package com.codecool.cckk.model.trips;
 
 import com.codecool.cckk.model.CckkUser;
-//import com.codecool.cckk.model.Station;
 import com.codecool.cckk.model.Station;
 import com.codecool.cckk.model.VehicleType;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Trip {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    @EqualsAndHashCode.Exclude
     private int price = 350;
-    private LocalDate journeyStart;
+    private LocalDateTime journeyStart;
 
     private VehicleType vehicleType;
     private int vehicleNumber;
@@ -33,6 +32,6 @@ public class Trip {
     @ManyToOne
     private CckkUser user;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Station fromStation;
 }
