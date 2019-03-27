@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Entity
@@ -18,9 +20,13 @@ public class Station {
     @GeneratedValue
     private Long id;
 
+    @NotEmpty
     private String name;
-    private TransportVehicle transportVehicle;
+    @NotNull
+    private VehicleType vehicleType;
+    @NotNull
+    private int vehicleNumber;
+    @NotEmpty
     private String address;
-
 
 }
