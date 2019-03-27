@@ -29,5 +29,4 @@ public class Station {
     @NotEmpty
     private String address;
 
-
 }

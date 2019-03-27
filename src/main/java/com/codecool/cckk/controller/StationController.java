@@ -56,29 +56,36 @@ public class StationController {
         }
     }
 
-    @PutMapping("/{stationID}")
+    @PutMapping("/update/{stationID}")
     public ReturnMessage updateStation(@PathVariable("stationID") Long stationID, @RequestBody Station station) {
-
         List<Station> storedStations = stationRepository.findAll();
-
         for (Station storedStation : storedStations) {
-            System.out.println(storedStation.getId());
-
             if (storedStation.getId().equals(stationID)) {
-                System.out.println(stationID);
-
                 storedStation.setName(station.getName());
                 storedStation.setVehicleType(station.getVehicleType());
                 storedStation.setVehicleNumber(station.getVehicleNumber());
                 storedStation.setAddress(station.getAddress());
-
                 stationRepository.save(storedStation);
-
                 return new ReturnMessage(true, "Update is successful!");
             }
         }
-        return new ReturnMessage(false, "Update isn't successful!");
+        return new ReturnMessage(false, "Update isn't successful, because not matches!");
     }
+
+    @DeleteMapping("/delete/{stationID}")
+    public ReturnMessage deleteStation(@PathVariable("stationID") Long stationID) {
+        List<Station> storedStations = stationRepository.findAll();
+        for (Station storedStation : storedStations) {
+            if (storedStation.getId().equals(stationID)) {
+                stationRepository.delete(storedStation);
+                return new ReturnMessage(true, "This station deleted!");
+            }
+        }
+
+        return new ReturnMessage(false, "This station doesn't exists!");
+    }
+
+
 
     private boolean stationIsExists(Station incomingStation) {
         List<Station> storedStations = stationRepository.findAll();
