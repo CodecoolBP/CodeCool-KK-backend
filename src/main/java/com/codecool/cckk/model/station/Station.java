@@ -1,4 +1,4 @@
-package com.codecool.cckk.model;
+package com.codecool.cckk.model.station;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,10 +18,9 @@ public class Station {
     @GeneratedValue
     private Long id;
 
-    @Column(nullable = false, unique = true)
     private String name;
-
-    @Column(nullable = false)
+    private TransportVehicle transportVehicle;
     private String address;
+
 
 }

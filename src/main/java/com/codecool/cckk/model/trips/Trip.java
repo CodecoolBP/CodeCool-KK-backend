@@ -1,8 +1,8 @@
 package com.codecool.cckk.model.trips;
 
 import com.codecool.cckk.model.CckkUser;
-import com.codecool.cckk.model.Station;
-import com.codecool.cckk.model.VehicleType;
+
+import com.codecool.cckk.model.station.Station;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 public class Trip {
-
+//
     @Id
     @GeneratedValue
     private Long id;

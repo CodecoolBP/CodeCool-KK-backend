@@ -2,9 +2,9 @@ package com.codecool.cckk;
 
 import com.codecool.cckk.model.CckkUser;
 import com.codecool.cckk.model.Discount;
-import com.codecool.cckk.model.Station;
-import com.codecool.cckk.model.VehicleType;
+import com.codecool.cckk.model.station.Station;
 import com.codecool.cckk.model.trips.Trip;
+import com.codecool.cckk.model.trips.VehicleType;
 import com.codecool.cckk.repository.StationRepository;
 import com.codecool.cckk.repository.TripRepository;
 import com.codecool.cckk.repository.UserRepository;
@@ -19,7 +19,6 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
