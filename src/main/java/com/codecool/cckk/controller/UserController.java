@@ -38,12 +38,12 @@ public class UserController {
 
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ReturnMessage loginUser(@RequestBody CckkUser loginUser){
         List<CckkUser> users = getUsers();
         for (CckkUser user : users){
             if (user.getEmail().equals(loginUser.getEmail())){
-                if(user.getHashedPassword().equals(loginUser.getHashedPassword())){
+                if(user.getPassword().equals(loginUser.getPassword())){
                     return new ReturnMessage(true, "Login successful");
                 }else{
                     return new ReturnMessage(false, "Password is incorrect");

@@ -24,7 +24,6 @@ public class CCKKBackendApplication {
     @Bean
     public CommandLineRunner init() {
         return (String... args) -> {
-
         };
     }
 
