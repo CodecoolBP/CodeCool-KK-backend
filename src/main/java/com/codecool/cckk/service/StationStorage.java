@@ -30,4 +30,13 @@ public class StationStorage {
         return new ReturnMessage(true, "Add new station success!");
     }
 
+    public ReturnMessage addStations(List<Station> stations) {
+        //TODO check station is exists
+        this.stations = stations;
+        for (Station station : stations) {
+            stationRepository.save(station);
+        }
+        return new ReturnMessage(true, "Add new station success!");
+    }
+
 }

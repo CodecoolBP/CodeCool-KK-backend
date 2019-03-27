@@ -27,6 +27,11 @@ public class StationController {
         return stationStorage.addStation(station);
     }
 
+    @PostMapping("/adds")
+    public ReturnMessage addStations(@RequestBody @Valid List<Station> stations) {
+        return stationStorage.addStations(stations);
+    }
+
 
 
 }
