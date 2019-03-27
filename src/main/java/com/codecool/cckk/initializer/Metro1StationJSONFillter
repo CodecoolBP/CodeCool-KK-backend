@@ -6,57 +6,68 @@ III. Send this JSON on this port:
 [
     {
         "name" : "Vörösmarty tér",
-        "transportVehicle" : "METRO",
+        "vehicleType" : "METRO",
+        "vehicleNumber" : "1",
         "address" : "V. Vörösmarty tér"
     },
     {
         "name" : "Deák Ferenc tér",
-        "transportVehicle" : "METRO",
+        "vehicleType" : "METRO",
+        "vehicleNumber" : "1",
         "address" : "V. Deák Ferenc tér"
     },
     {
         "name" : "Bajcsy-Zsilinszky út",
-        "transportVehicle" : "METRO",
+        "vehicleType" : "METRO",
+        "vehicleNumber" : "1",
         "address" : "VI. Andrássy út 3."
     },
     {
         "name" : "Opera",
-        "transportVehicle" : "METRO",
+        "vehicleType" : "METRO",
+        "vehicleNumber" : "1",
         "address" : "VI. Andrássy út 25."
     },
     {
         "name" : "Oktogon",
-        "transportVehicle" : "METRO",
+        "vehicleType" : "METRO",
+        "vehicleNumber" : "1",
         "address" : "VI. Oktogon"
     },
     {
         "name" : "Vörösmarty utca",
-        "transportVehicle" : "METRO",
+        "vehicleType" : "METRO",
+        "vehicleNumber" : "1",
         "address" : "VI. Andrássy út 66."
     },
     {
         "name" : "Kodály körönd",
-        "transportVehicle" : "METRO",
+        "vehicleType" : "METRO",
+        "vehicleNumber" : "1",
         "address" : "VI. Andrássy út 80-85."
     },
     {
         "name" : "Bajza utca",
-        "transportVehicle" : "METRO",
+        "vehicleType" : "METRO",
+        "vehicleNumber" : "1",
         "address" : "VI. Andrássy út 100-105."
     },
     {
         "name" : "Hősök tere",
-        "transportVehicle" : "METRO",
+        "vehicleType" : "METRO",
+        "vehicleNumber" : "1",
         "address" : "XIV. Hősök tere"
     },
     {
         "name" : "Széchenyi fürdő",
-        "transportVehicle" : "METRO",
+        "vehicleType" : "METRO",
+        "vehicleNumber" : "1",
         "address" : "XIV. Városliget"
     },
     {
         "name" : "Mexikói út",
-        "transportVehicle" : "METRO",
+        "vehicleType" : "METRO",
+        "vehicleNumber" : "1",
         "address" : "XIV. Horvát Boldizsár utca 1."
     }
 ]

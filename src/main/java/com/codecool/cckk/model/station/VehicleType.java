@@ -1,6 +1,6 @@
 package com.codecool.cckk.model.station;
 
-public enum TransportVehicle {
+public enum VehicleType {
 
     METRO,
     BUS,
