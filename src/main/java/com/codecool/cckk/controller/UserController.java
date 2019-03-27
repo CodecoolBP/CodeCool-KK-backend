@@ -32,7 +32,6 @@ public class UserController {
             }
         }
         this.userRepository.save(newUser);
-        this.userRepository.save(newUser);
         return new ReturnMessage(true, "Registration is success!");
 
     }
