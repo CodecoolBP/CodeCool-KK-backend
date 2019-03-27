@@ -27,7 +27,7 @@ public class CckkUser {
     @EqualsAndHashCode.Exclude
     private String email;
     @EqualsAndHashCode.Exclude
-    private String hashedPassword;
+    private String password;
 
     @Enumerated(EnumType.STRING)
     private Discount discount;
@@ -45,6 +45,11 @@ public class CckkUser {
         this.discount = discount;
     }
 
+    public CckkUser(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
     @Override
     public String toString() {
         return "CckkUser{" +
@@ -52,7 +57,7 @@ public class CckkUser {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", hashedPassword='" + hashedPassword + '\'' +
+                ", hashedPassword='" + password + '\'' +
                 '}';
     }
 }

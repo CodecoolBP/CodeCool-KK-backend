@@ -101,7 +101,7 @@ public class AllRepositoryTests {
         return CckkUser.builder()
                     .firstName("Zsoltika")
                     .lastName("Kovacs")
-                    .hashedPassword("alma")
+                    .password("alma")
                     .email("zsoltika.k@ema.il")
                     .discount(Discount.STUDENT)
                     .build();
