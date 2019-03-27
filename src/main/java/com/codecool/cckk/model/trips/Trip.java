@@ -28,6 +28,11 @@ public class Trip {
     private VehicleType vehicleType;
     private int vehicleNumber;
 
+    @OneToOne
+    private Station fromStation;
+
+    @OneToOne
+    private Station toStation;
 
     @ManyToOne
     private CckkUser user;
@@ -44,6 +49,5 @@ public class Trip {
                 '}';
     }
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Station fromStation;
+
 }

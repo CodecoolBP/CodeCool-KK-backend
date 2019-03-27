@@ -6,7 +6,12 @@ import com.codecool.cckk.model.trips.Trip;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.smartcardio.Card;
 import javax.validation.constraints.NotEmpty;
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 
@@ -44,17 +49,23 @@ public class CckkUser {
     orphanRemoval = true)
     private Set<PrePaidCard> cards;
 
+    @ElementCollection
+    public List<HashMap<String, LocalDate>> passes;
 
-    public CckkUser(String firstName, String lastName, Discount discount) {
+
+
+    public CckkUser(String firstName, String lastName, Discount discount, PrePaidCard card) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.discount = discount;
+        this.cards.add(card);
     }
 
     public CckkUser(String email, String password) {
         this.email = email;
         this.password = password;
     }
+
 
     @Override
     public String toString() {
@@ -63,7 +74,8 @@ public class CckkUser {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", hashedPassword='" + password + '\'' +
+                ", password='" + password + '\'' +
+                ", passes='" + passes + '\'' +
                 '}';
     }
 }
