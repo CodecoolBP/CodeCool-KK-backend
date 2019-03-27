@@ -25,7 +25,6 @@ public class CCKKBackendApplication {
     public CommandLineRunner init() {
         return (String... args) -> {
             userStorage.addPremadeUsers();
-            LOGGER.info(userStorage.toString());
         };
     }
 

@@ -26,7 +26,7 @@ public class CckkUser {
     @NotEmpty
     private String lastName;
     private String email;
-    private String hashedPassword;
+    private String password;
 
     @OneToMany(cascade = CascadeType.ALL,
             mappedBy = "user",
@@ -50,7 +50,7 @@ public class CckkUser {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", hashedPassword='" + hashedPassword + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 }
