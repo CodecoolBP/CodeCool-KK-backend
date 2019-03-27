@@ -1,0 +1,62 @@
+I. Run project
+II. Open Postman
+III. Send this JSON on this port:
+        http://localhost:8080/station/adds
+
+[
+    {
+        "name" : "Vörösmarty tér",
+        "transportVehicle" : "METRO",
+        "address" : "V. Vörösmarty tér"
+    },
+    {
+        "name" : "Deák Ferenc tér",
+        "transportVehicle" : "METRO",
+        "address" : "V. Deák Ferenc tér"
+    },
+    {
+        "name" : "Bajcsy-Zsilinszky út",
+        "transportVehicle" : "METRO",
+        "address" : "VI. Andrássy út 3."
+    },
+    {
+        "name" : "Opera",
+        "transportVehicle" : "METRO",
+        "address" : "VI. Andrássy út 25."
+    },
+    {
+        "name" : "Oktogon",
+        "transportVehicle" : "METRO",
+        "address" : "VI. Oktogon"
+    },
+    {
+        "name" : "Vörösmarty utca",
+        "transportVehicle" : "METRO",
+        "address" : "VI. Andrássy út 66."
+    },
+    {
+        "name" : "Kodály körönd",
+        "transportVehicle" : "METRO",
+        "address" : "VI. Andrássy út 80-85."
+    },
+    {
+        "name" : "Bajza utca",
+        "transportVehicle" : "METRO",
+        "address" : "VI. Andrássy út 100-105."
+    },
+    {
+        "name" : "Hősök tere",
+        "transportVehicle" : "METRO",
+        "address" : "XIV. Hősök tere"
+    },
+    {
+        "name" : "Széchenyi fürdő",
+        "transportVehicle" : "METRO",
+        "address" : "XIV. Városliget"
+    },
+    {
+        "name" : "Mexikói út",
+        "transportVehicle" : "METRO",
+        "address" : "XIV. Horvát Boldizsár utca 1."
+    }
+]
