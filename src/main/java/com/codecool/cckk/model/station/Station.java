@@ -1,6 +1,5 @@
 package com.codecool.cckk.model.station;
 
-import com.codecool.cckk.model.trips.Trip;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
