@@ -2,7 +2,6 @@ package com.codecool.cckk.model.trips;
 
 import com.codecool.cckk.model.CckkUser;
 //import com.codecool.cckk.model.station.Station;
-import com.codecool.cckk.model.VehicleType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
