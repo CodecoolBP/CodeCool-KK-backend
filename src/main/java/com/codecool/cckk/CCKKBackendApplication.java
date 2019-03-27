@@ -1,6 +1,6 @@
 package com.codecool.cckk;
 
-import com.codecool.cckk.service.UserStorage;
+import com.codecool.cckk.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ public class CCKKBackendApplication {
     private static final Logger LOGGER = LoggerFactory.getLogger(CCKKBackendApplication.class);
 
     @Autowired
-    private UserStorage userStorage;
+    private UserRepository userRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(CCKKBackendApplication.class, args);
@@ -24,8 +24,7 @@ public class CCKKBackendApplication {
     @Bean
     public CommandLineRunner init() {
         return (String... args) -> {
-            userStorage.addPremadeUsers();
-            LOGGER.info(userStorage.toString());
+
         };
     }
 

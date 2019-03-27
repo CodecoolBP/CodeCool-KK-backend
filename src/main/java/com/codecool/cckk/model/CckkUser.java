@@ -1,10 +1,7 @@
 package com.codecool.cckk.model;
 
 import com.codecool.cckk.model.trips.Trip;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -15,6 +12,7 @@ import java.util.Set;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class CckkUser {
 
     @Id
@@ -25,9 +23,16 @@ public class CckkUser {
     private String firstName;
     @NotEmpty
     private String lastName;
+
+    @EqualsAndHashCode.Exclude
     private String email;
+    @EqualsAndHashCode.Exclude
     private String hashedPassword;
 
+    @Enumerated(EnumType.STRING)
+    private Discount discount;
+
+    @EqualsAndHashCode.Exclude
     @OneToMany(cascade = CascadeType.ALL,
             mappedBy = "user",
             orphanRemoval = true)
@@ -37,6 +42,7 @@ public class CckkUser {
     public CckkUser(String firstName, String lastName, Discount discount) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.discount = discount;
     }
 
     @Override
