@@ -24,17 +24,31 @@ public class UserController {
     }
 
     @PostMapping("/add")
-    public ReturnMessage addUser(@RequestBody @Valid CckkUser cckkUser) {
-        List<CckkUser> users = this.userRepository.findAll();
+    public ReturnMessage addUser(@RequestBody @Valid CckkUser newUser) {
+        List<CckkUser> users = getUsers();
         for (CckkUser user : users) {
-            if (user.getEmail().equals(cckkUser.getEmail())) {
+            if (user.getEmail().equals(newUser.getEmail())) {
                 return new ReturnMessage(false, "Email address is already taken!");
             }
         }
-        this.userRepository.save(cckkUser);
+        this.userRepository.save(newUser);
         return new ReturnMessage(true, "Registration is success!");
 
     }
 
+    @GetMapping("/login")
+    public ReturnMessage loginUser(@RequestBody CckkUser loginUser){
+        List<CckkUser> users = getUsers();
+        for (CckkUser user : users){
+            if (user.getEmail().equals(loginUser.getEmail())){
+                if(user.getHashedPassword().equals(loginUser.getHashedPassword())){
+                    return new ReturnMessage(true, "Login successful");
+                }else{
+                    return new ReturnMessage(false, "Password is incorrect");
+                }
+            }
+        }
+        return new ReturnMessage(false, "Email address is incorrect, no user found!");
+    }
 
 }
