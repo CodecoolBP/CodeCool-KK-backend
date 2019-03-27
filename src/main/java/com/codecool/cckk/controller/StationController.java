@@ -24,10 +24,10 @@ public class StationController {
 
     @PostMapping("/add")
     public ReturnMessage addStation(@RequestBody @Valid Station incomingStation) {
-        if (stationIsExists(incomingStation)) {
+        if (!stationIsExists(incomingStation)) {
             stationRepository.save(incomingStation);
             return new ReturnMessage(true, "This station was saved!");
-        } else if (!stationIsExists(incomingStation)) {
+        } else if (stationIsExists(incomingStation)) {
             return new ReturnMessage(false, "This station already exists!!");
         } else {
             return new ReturnMessage(false, "Something went wrong!");
@@ -40,10 +40,10 @@ public class StationController {
         int exists = 0;
 
         for (Station incomingStation : incomingStations) {
-            if (stationIsExists(incomingStation)) {
+            if (!stationIsExists(incomingStation)) {
                 saved++;
                 stationRepository.save(incomingStation);
-            } else if (!stationIsExists(incomingStation)) {
+            } else if (stationIsExists(incomingStation)) {
                 exists++;
             } else {
                 return new ReturnMessage(false, "Something went wrong!");
@@ -56,22 +56,47 @@ public class StationController {
         }
     }
 
+    @PutMapping("/update/{stationID}")
+    public ReturnMessage updateStation(@PathVariable("stationID") Long stationID, @RequestBody Station station) {
+        List<Station> storedStations = stationRepository.findAll();
+        for (Station storedStation : storedStations) {
+            if (storedStation.getId().equals(stationID)) {
+                storedStation.setName(station.getName());
+                storedStation.setVehicleType(station.getVehicleType());
+                storedStation.setVehicleNumber(station.getVehicleNumber());
+                storedStation.setAddress(station.getAddress());
+                stationRepository.save(storedStation);
+                return new ReturnMessage(true, "Update is successful!");
+            }
+        }
+        return new ReturnMessage(false, "Update isn't successful, because not matches!");
+    }
+
+    @DeleteMapping("/delete/{stationID}")
+    public ReturnMessage deleteStation(@PathVariable("stationID") Long stationID) {
+        List<Station> storedStations = stationRepository.findAll();
+        for (Station storedStation : storedStations) {
+            if (storedStation.getId().equals(stationID)) {
+                stationRepository.delete(storedStation);
+                return new ReturnMessage(true, "This station deleted!");
+            }
+        }
+
+        return new ReturnMessage(false, "This station doesn't exists!");
+    }
+
+
+
     private boolean stationIsExists(Station incomingStation) {
         List<Station> storedStations = stationRepository.findAll();
         for (Station storedStation : storedStations) {
             if (incomingStation.getName().equals(storedStation.getName()) &
                 incomingStation.getAddress().equals(storedStation.getAddress()) &
-                incomingStation.getTransportVehicle().equals(storedStation.getTransportVehicle())) {
-                return false;
+                incomingStation.getVehicleType().equals(storedStation.getVehicleType()) &
+                incomingStation.getVehicleNumber() == storedStation.getVehicleNumber()) {
+                return true;
             }
         }
-        return true;
-    }
-
-
-    public ReturnMessage updateStation() {
-
-
-        return new ReturnMessage(false, "test");
+        return false;
     }
 }
