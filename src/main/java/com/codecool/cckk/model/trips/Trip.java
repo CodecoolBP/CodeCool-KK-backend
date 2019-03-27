@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Trip {
-//
+
     @Id
     @GeneratedValue
     private Long id;
@@ -28,7 +28,8 @@ public class Trip {
     private VehicleType vehicleType;
     private int vehicleNumber;
 
-//
+
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cckk_user_id")
     private CckkUser user;
