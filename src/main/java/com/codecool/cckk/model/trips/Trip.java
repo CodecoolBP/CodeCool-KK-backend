@@ -1,36 +1,35 @@
 package com.codecool.cckk.model.trips;
 
 import com.codecool.cckk.model.CckkUser;
-//import com.codecool.cckk.model.station.Station;
+
+import com.codecool.cckk.model.station.Station;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Trip {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    @EqualsAndHashCode.Exclude
     private int price = 350;
-    private LocalDate journeyStart;
+    private LocalDateTime journeyStart;
 
     private VehicleType vehicleType;
     private int vehicleNumber;
 
 
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cckk_user_id")
+    @ManyToOne
     private CckkUser user;
 
     @Override
@@ -44,4 +43,7 @@ public class Trip {
                 ", user=" + user.toString() +
                 '}';
     }
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Station fromStation;
 }

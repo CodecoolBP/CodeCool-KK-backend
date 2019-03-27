@@ -32,6 +32,8 @@ public class UserController {
             }
         }
         this.userRepository.save(newUser);
+        this.userRepository.save(newUser);
+        loginUser(newUser);
         return new ReturnMessage(true, "Registration is success!");
 
     }
@@ -50,5 +52,23 @@ public class UserController {
         }
         return new ReturnMessage(false, "Email address is incorrect, no user found!");
     }
+    @GetMapping("/login")
+    public ReturnMessage loginUser(@RequestBody CckkUser loginUser){
+        List<CckkUser> users = getUsers();
+        for (CckkUser user : users){
+            if (user.getEmail().equals(loginUser.getEmail())){
+                if(user.getPassword().equals(loginUser.getPassword())){
+                    return new ReturnMessage(true, "Login successful");
+                }else{
+                    return new ReturnMessage(false, "Password is incorrect");
+                }
+            }
+        }
+        return new ReturnMessage(false, "Email address is incorrect, no user found!");
+    }
+
+    //TODO: put mapping
+    //TODO: rest routing
+
 
 }

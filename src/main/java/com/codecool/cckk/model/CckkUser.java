@@ -2,9 +2,8 @@ package com.codecool.cckk.model;
 
 import com.codecool.cckk.model.cards.PrePaidCard;
 import com.codecool.cckk.model.trips.Trip;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -15,6 +14,7 @@ import java.util.Set;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class CckkUser {
 
     @Id
@@ -25,9 +25,16 @@ public class CckkUser {
     private String firstName;
     @NotEmpty
     private String lastName;
-    private String email;
-    private String hashedPassword;
 
+    @EqualsAndHashCode.Exclude
+    private String email;
+    @EqualsAndHashCode.Exclude
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Discount discount;
+
+    @EqualsAndHashCode.Exclude
     @OneToMany(cascade = CascadeType.ALL,
             mappedBy = "user",
             orphanRemoval = true)
@@ -41,6 +48,12 @@ public class CckkUser {
     public CckkUser(String firstName, String lastName, Discount discount) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.discount = discount;
+    }
+
+    public CckkUser(String email, String password) {
+        this.email = email;
+        this.password = password;
     }
 
     @Override
@@ -50,7 +63,7 @@ public class CckkUser {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", hashedPassword='" + hashedPassword + '\'' +
+                ", hashedPassword='" + password + '\'' +
                 '}';
     }
 }
