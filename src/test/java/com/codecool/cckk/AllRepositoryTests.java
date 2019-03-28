@@ -18,7 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.time.LocalDateTime;
 import java.util.Collections;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -67,6 +67,17 @@ public class AllRepositoryTests {
         assertEquals(1,stationRepository.findAll().size());
     }
 
+    @Test
+    public void selectSingleUserFromDB() {
+        CckkUser zsoltika = createZsoltika();
+        userRepository.save(zsoltika);
+
+        CckkUser userFromDb = userRepository.findUserById(zsoltika.getEmail());
+        assertEquals(userFromDb, zsoltika);
+        assertEquals("Zsoltika",userFromDb.getFirstName());
+        assertEquals("zsoltika.k@ema.il",userFromDb.getEmail());
+        assertEquals(Discount.STUDENT,userFromDb.getDiscount());
+    }
 
 
     private Station createStationArany() {
