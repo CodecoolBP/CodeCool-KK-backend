@@ -37,44 +37,30 @@ public class HardwareController {
     StationRepository stationRepository;
 
 
-
     @Autowired
     UserMoneyCalculator userMoneyCalculator;
 
     @PostMapping("/try-trip")
     public ReturnMessage responseToOnSiteScanner(@RequestBody HardwareData hwData) {
         List<Station> stations = stationRepository.findAll();
-        List<CckkUser> users = userRepository.findAll();
-        double userBalance;
 
         CckkUser userWantsToTravel = userRepository.findUserByCardNumber(hwData.getCardNumber());
         boolean isAuthorizedToTravel = userMoneyCalculator.checkIfUserCanTravel(userWantsToTravel, hwData.getCardNumber());
-
+        int ticketPrice;
 
         for (Station station : stations) {
             if (hwData.getStationId().equals(station.getId())) {
-                for (CckkUser user : users) {
-                    System.out.println(user.toString());
-                    for (PrePaidCard card : user.getCards()) {
-                        System.out.println(card.toString());
-                        if (card.getCardNumber().equals(hwData.getCardNumber())) {
-                            userBalance = card.getBalance();
-                            boolean isValid = true;
-                            if (userBalance < 350) {
-                                isValid = false;
-                            }
-                            Trip newTrip = buildTrip(station, user, isValid, 350);
-                            tripRepository.save(newTrip);
-                            if (isValid) {
-                                cardRepository.setNewBalance(userBalance - 350.00, card.getCardNumber());
-                            }
-
-                            return new ReturnMessage(isAuthorizedToTravel, userWantsToTravel.getEmail() +
-                                    " is " + isAuthorizedToTravel + " to travel!");
-                        }
-                    }
+                if  (isAuthorizedToTravel){
+                    ticketPrice = 350;
+                }else{
+                    ticketPrice = 0;
                 }
+                Trip newTrip = buildTrip(station, userWantsToTravel, isAuthorizedToTravel, ticketPrice);
+                tripRepository.save(newTrip);
+                return new ReturnMessage(isAuthorizedToTravel, userWantsToTravel.getEmail() +
+                        " is " + isAuthorizedToTravel + " to travel!");
             }
+
         }
         return new ReturnMessage(false, "Something went wrong!");
 
@@ -85,7 +71,7 @@ public class HardwareController {
     }
 
 
-        private Trip buildTrip(Station station, CckkUser user, boolean isValid, int ticketprice) {
+    private Trip buildTrip(Station station, CckkUser user, boolean isValid, int ticketprice) {
         Trip newTrip = Trip.builder()
                 .fromStation(station)
                 .journeyStart(LocalDateTime.now())

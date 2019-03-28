@@ -2,6 +2,7 @@ package com.codecool.cckk.service;
 
 import com.codecool.cckk.model.CckkUser;
 import com.codecool.cckk.model.cards.PrePaidCard;
+import com.codecool.cckk.repository.CardRepository;
 import com.codecool.cckk.repository.TripRepository;
 import com.codecool.cckk.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ public class UserMoneyCalculator {
     @Autowired
     TripRepository tripRepository;
 
+    @Autowired
+    CardRepository cardRepository;
+
     public boolean checkIfUserCanTravel(CckkUser user, Long cardNumberUsed) {
         //TODO: user has purchased pass
         //TODO: user has traveled enough to acquire pass
@@ -33,7 +37,7 @@ public class UserMoneyCalculator {
         }
         try {
             if (cardWasUsed.getBalance() >= singleTripPrice) {
-                reduceCardByAmount(user, cardNumberUsed);
+                cardRepository.setNewBalance(cardWasUsed.getBalance()-350, cardWasUsed.getCardNumber());
                 return true;
             }
         } catch (NullPointerException e) {
@@ -45,9 +49,5 @@ public class UserMoneyCalculator {
 
     }
 
-
-    public void reduceCardByAmount(CckkUser user, Long cardNumberUsed) {
-
-    }
 
 }
