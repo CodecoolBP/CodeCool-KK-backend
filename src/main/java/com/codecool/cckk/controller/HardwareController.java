@@ -41,13 +41,19 @@ public class HardwareController {
         List<Station> stations = stationRepository.findAll();
         List<CckkUser> users = userRepository.findAll();
 
+
         for (Station station : stations) {
             if (hwData.getStationId().equals(station.getId())) {
                 for (CckkUser user : users) {
                     for (PrePaidCard card : user.getCards()) {
                         if (card.getCardNumber().equals(hwData.getCardNumber())) {
+                            double balance = card.getBalance();
                             boolean isValid = true;
-                            Trip newTrip = buildTrip(station, user, isValid);
+                            if(balance<350){
+                                isValid = false;
+                            }
+                            Trip newTrip = buildTrip(station, user, isValid, 350);
+                            card.setBalance(balance-newTrip.getPrice());
                             return new ReturnMessage(true, newTrip.toString());
                         }
                     }
@@ -63,13 +69,13 @@ public class HardwareController {
 
     }
 
-    private Trip buildTrip(Station station, CckkUser user, boolean isValid) {
+    private Trip buildTrip(Station station, CckkUser user, boolean isValid, int ticketprice) {
         Trip newTrip = Trip.builder()
                 .fromStation(station)
                 .journeyStart(LocalDateTime.now())
                 .vehicleType(station.getVehicleType())
                 .vehicleNumber(station.getVehicleNumber())
-                .price(350)
+                .price(ticketprice)
                 .user(user)
                 .success(isValid)
                 .build();
