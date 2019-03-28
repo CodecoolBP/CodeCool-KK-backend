@@ -51,7 +51,7 @@ public class CckkUser {
     private Set<PrePaidCard> cards;
 
     @ElementCollection
-    public List<HashMap<String, LocalDate>> passes;
+    public List<HashMap<LocalDate, LocalDate>> passes;
 
 
 
