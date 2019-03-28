@@ -29,4 +29,11 @@ public class Station {
     @NotEmpty
     private String address;
 
+    @Override
+    public String toString() {
+        return "Station{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

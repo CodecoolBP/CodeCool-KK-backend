@@ -78,7 +78,7 @@ public class StationController {
         for (Station storedStation : storedStations) {
             if (storedStation.getId().equals(stationID)) {
                 stationRepository.delete(storedStation);
-                return new ReturnMessage(true, "This station deleted!");
+                return new ReturnMessage(true, storedStation.toString() + "This station deleted!");
             }
         }
 
