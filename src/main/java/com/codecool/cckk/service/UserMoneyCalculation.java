@@ -15,13 +15,13 @@ public class UserMoneyCalculation {
     @Autowired
     TripRepository tripRepository;
 
-    public ReturnMessage checkIfUserCanTravel(@RequestBody CckkUser user) {
+    public boolean checkIfUserCanTravel(CckkUser user) {
         //TODO: user has purchased pass
         //TODO: user has traveled enough to acquire pass
         //TODO: user has money
 
 
-        return new ReturnMessage(true, "Nothing happened yet");
+        return true;
     }
 
 }

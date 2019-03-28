@@ -25,10 +25,6 @@ public class Trip {
     private int price = 350;
     private LocalDateTime journeyStart;
 
-    private VehicleType vehicleType;
-    private int vehicleNumber;
-
-
     @ManyToOne
     private CckkUser user;
 
