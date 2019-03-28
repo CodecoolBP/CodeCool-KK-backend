@@ -54,7 +54,7 @@ public class HardwareController {
                             }
                             Trip newTrip = buildTrip(station, user, isValid, 350);
                             card.setBalance(balance-newTrip.getPrice());
-                            return new ReturnMessage(true, newTrip.toString());
+                            return new ReturnMessage(isValid, newTrip.toString());
                         }
                     }
                     return new ReturnMessage(false, "Card Number is invalid! No card found with no: " + hwData.getCardNumber());
