@@ -1,8 +1,10 @@
 package com.codecool.cckk.controller;
 
+import com.codecool.cckk.model.CckkUser;
 import com.codecool.cckk.model.HardwareData;
 import com.codecool.cckk.model.ReturnMessage;
 import com.codecool.cckk.repository.UserRepository;
+import com.codecool.cckk.service.UserMoneyCalculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +18,9 @@ public class HardwareController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    UserMoneyCalculator userMoneyCalculator;
+
     @PostMapping("/query")
     public ReturnMessage responseToOnSiteScanner(@RequestBody HardwareData hwData) {
         //TODO: query user and station from db
@@ -23,7 +28,12 @@ public class HardwareController {
         //TODO: call trip builder and save to db: service.TripBuilder
         //      .saveTripToDb(userCanTravel:boolean,selectedUser:CckkUser,stationId:Long
 
-        return new ReturnMessage(true, "Nothing happened yet");
+        CckkUser userWantsToTravel = userRepository.findUserByCardNumber(hwData.getCardNumber());
+        boolean isAuthorizedToTravel = userMoneyCalculator.checkIfUserCanTravel(userWantsToTravel, hwData.getCardNumber());
+
+
+        return new ReturnMessage(isAuthorizedToTravel,
+                "Can "+userWantsToTravel.getEmail()+" travel? "+isAuthorizedToTravel);
     }
 
 }
