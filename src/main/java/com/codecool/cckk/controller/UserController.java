@@ -19,7 +19,7 @@ public class UserController {
 
     @GetMapping("/list")
     public List<CckkUser> getUsers() {
-        return this.userRepository.findAll();
+        return userRepository.findAll();
     }
 
     @PostMapping("/add")

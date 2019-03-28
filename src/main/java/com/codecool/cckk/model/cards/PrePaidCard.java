@@ -17,4 +17,9 @@ public class PrePaidCard{
     private Long cardNumber;
 
     private double balance;
+
+
+    public void changeBalance(int ammount){
+        balance -= ammount;
+    }
 }

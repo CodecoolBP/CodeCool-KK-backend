@@ -40,28 +40,33 @@ public class HardwareController {
     public ReturnMessage responseToOnSiteScanner(@RequestBody HardwareData hwData) {
         List<Station> stations = stationRepository.findAll();
         List<CckkUser> users = userRepository.findAll();
+        double userBalance;
 
 
         for (Station station : stations) {
             if (hwData.getStationId().equals(station.getId())) {
                 for (CckkUser user : users) {
+                    System.out.println(user.toString());
                     for (PrePaidCard card : user.getCards()) {
+                        System.out.println(card.toString());
                         if (card.getCardNumber().equals(hwData.getCardNumber())) {
-                            double balance = card.getBalance();
+                            userBalance = card.getBalance();
                             boolean isValid = true;
-                            if(balance<350){
+                            if(userBalance<350){
                                 isValid = false;
                             }
                             Trip newTrip = buildTrip(station, user, isValid, 350);
-                            card.setBalance(balance-newTrip.getPrice());
+                            if(isValid){
+                                cardRepository.setNewBalance(userBalance-350.00, card.getCardNumber());
+                            }
+
                             return new ReturnMessage(isValid, newTrip.toString());
                         }
                     }
-                    return new ReturnMessage(false, "Card Number is invalid! No card found with no: " + hwData.getCardNumber());
                 }
             }
         }
-        return new ReturnMessage(false, "Station ID is invalid! No station with id: " + hwData.getStationId());
+        return new ReturnMessage(false, "Something went wrong!");
 
         //TODO: check if user is authorized for travel: service.UserMoneyCalculation.checkIfUserCanTravel()
         //TODO: call trip builder and save to db: service.TripBuilder
