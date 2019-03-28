@@ -2,6 +2,7 @@ package com.codecool.cckk;
 
 import com.codecool.cckk.model.CckkUser;
 import com.codecool.cckk.model.Discount;
+import com.codecool.cckk.model.cards.PrePaidCard;
 import com.codecool.cckk.model.station.Station;
 import com.codecool.cckk.model.station.VehicleType;
 import com.codecool.cckk.model.trips.Trip;
@@ -19,6 +20,7 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -83,9 +85,23 @@ public class AllRepositoryTests {
     @Test
     public void selectingSingleUserFromDbFromCardNumber() {
         CckkUser zsoltika = createZsoltika();
+        PrePaidCard prePaidCard = createMoneyCard();
+        zsoltika.setCards(Collections.singleton(prePaidCard));
         userRepository.save(zsoltika);
 
+        CckkUser userFromDb = userRepository.findUserByCardNumber(prePaidCard.getCardNumber());
+        assertEquals(userFromDb, zsoltika);
+        assertTrue(userFromDb.getCards().contains(prePaidCard));
+        PrePaidCard cardFromDb = (PrePaidCard)userFromDb.getCards().toArray()[0];
+        assertEquals(cardFromDb, prePaidCard);
 
+    }
+
+    private PrePaidCard createMoneyCard() {
+        return PrePaidCard.builder()
+                    .cardNumber(4324878918186423L)
+                    .balance(5000)
+                    .build();
     }
 
 
