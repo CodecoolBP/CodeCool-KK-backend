@@ -29,7 +29,7 @@ public class UserMoneyCalculatorTest {
         PrePaidCard moneyCard = createMoneyCard();
         zsoltika.setCards(Collections.singleton(moneyCard));
         userRepository.save(zsoltika);
-        boolean canUserTravel = userMoneyCalculator.checkIfUserCanTravel(zsoltika);
+        boolean canUserTravel = userMoneyCalculator.checkIfUserCanTravel(zsoltika, moneyCard.getCardNumber());
         Assertions.assertTrue(canUserTravel);
     }
 
@@ -39,7 +39,7 @@ public class UserMoneyCalculatorTest {
         PrePaidCard moneyCard = createPennilessCard();
         zsoltika.setCards(Collections.singleton(moneyCard));
         userRepository.save(zsoltika);
-        boolean canUserTravel = userMoneyCalculator.checkIfUserCanTravel(zsoltika);
+        boolean canUserTravel = userMoneyCalculator.checkIfUserCanTravel(zsoltika, moneyCard.getCardNumber());
         Assertions.assertFalse(canUserTravel);
     }
 
