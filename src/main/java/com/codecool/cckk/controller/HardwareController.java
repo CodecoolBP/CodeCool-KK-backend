@@ -2,7 +2,6 @@ package com.codecool.cckk.controller;
 
 import com.codecool.cckk.model.HardwareData;
 import com.codecool.cckk.model.ReturnMessage;
-import com.codecool.cckk.repository.StationRepository;
 import com.codecool.cckk.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

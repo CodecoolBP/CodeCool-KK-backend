@@ -10,6 +10,5 @@ public interface UserRepository extends JpaRepository<CckkUser, Long> {
     @Query("SELECT u FROM CckkUser u WHERE u.email = :emailaddress")
     CckkUser findUserByEmail(@Param("emailaddress") String emailaddress);
 
-
     CckkUser findUserByCardNumber(Long cardNumber);
 }
