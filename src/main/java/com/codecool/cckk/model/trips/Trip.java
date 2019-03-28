@@ -28,26 +28,10 @@ public class Trip {
     private VehicleType vehicleType;
     private int vehicleNumber;
 
-    @OneToOne
-    private Station fromStation;
-
-    @OneToOne
-    private Station toStation;
 
     @ManyToOne
     private CckkUser user;
 
-    @Override
-    public String toString() {
-        return "Trip{" +
-                "id=" + id +
-                ", price=" + price +
-                ", journeyStart=" + journeyStart +
-                ", vehicleType=" + vehicleType +
-                ", vehicleNumber=" + vehicleNumber +
-                ", user=" + user.toString() +
-                '}';
-    }
-
-
+    @OneToOne(cascade = CascadeType.ALL)
+    private Station fromStation;
 }

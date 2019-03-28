@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class HardwareData {
-    String emailAddress;
-    int stationId;
+    Long cardNumber;
+    Long stationId;
 }
