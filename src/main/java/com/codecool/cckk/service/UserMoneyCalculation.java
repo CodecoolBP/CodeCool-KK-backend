@@ -7,8 +7,6 @@ import com.codecool.cckk.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping("/moneycalc")
 public class UserMoneyCalculation {
 
     @Autowired
@@ -17,7 +15,6 @@ public class UserMoneyCalculation {
     @Autowired
     TripRepository tripRepository;
 
-    @PostMapping("/query")
     public ReturnMessage checkIfUserCanTravel(@RequestBody CckkUser user) {
         //TODO: user has purchased pass
         //TODO: user has traveled enough to acquire pass
