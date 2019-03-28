@@ -30,4 +30,5 @@ public class Trip {
 
     @OneToOne(cascade = CascadeType.ALL)
     private Station fromStation;
+
 }

@@ -32,12 +32,11 @@ public class UserController {
             }
         }
         this.userRepository.save(newUser);
-        loginUser(newUser);
         return new ReturnMessage(true, "Registration is success!");
 
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ReturnMessage loginUser(@RequestBody CckkUser loginUser){
         List<CckkUser> users = getUsers();
         for (CckkUser user : users){

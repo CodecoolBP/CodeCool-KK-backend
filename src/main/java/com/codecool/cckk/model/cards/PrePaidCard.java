@@ -1,13 +1,20 @@
 package com.codecool.cckk.model.cards;
 
-import com.codecool.cckk.model.PassType;
-import com.codecool.cckk.model.cards.Card;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
-public class PrePaidCard extends Card {
+@Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class PrePaidCard{
+
+    @Id
+    private Long cardNumber;
 
     private double balance;
 }
