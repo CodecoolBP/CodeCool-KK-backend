@@ -3,8 +3,8 @@ package com.codecool.cckk;
 import com.codecool.cckk.model.CckkUser;
 import com.codecool.cckk.model.Discount;
 import com.codecool.cckk.model.station.Station;
+import com.codecool.cckk.model.station.VehicleType;
 import com.codecool.cckk.model.trips.Trip;
-import com.codecool.cckk.model.trips.VehicleType;
 import com.codecool.cckk.repository.StationRepository;
 import com.codecool.cckk.repository.TripRepository;
 import com.codecool.cckk.repository.UserRepository;
@@ -18,7 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.time.LocalDateTime;
 import java.util.Collections;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -68,11 +68,11 @@ public class AllRepositoryTests {
     }
 
     @Test
-    public void selectSingleUserFromDB() {
+    public void selectSingleUserFromDbFromEmail() {
         CckkUser zsoltika = createZsoltika();
         userRepository.save(zsoltika);
 
-        CckkUser userFromDb = userRepository.findUserById(zsoltika.getEmail());
+        CckkUser userFromDb = userRepository.findUserByEmail(zsoltika.getEmail());
         assertEquals(userFromDb, zsoltika);
         assertEquals("Zsoltika",userFromDb.getFirstName());
         assertEquals("zsoltika.k@ema.il",userFromDb.getEmail());
@@ -80,10 +80,21 @@ public class AllRepositoryTests {
     }
 
 
+    @Test
+    public void selectingSingleUserFromDbFromCardNumber() {
+        CckkUser zsoltika = createZsoltika();
+        userRepository.save(zsoltika);
+
+
+    }
+
+
     private Station createStationArany() {
         return Station.builder()
                 .name("Arany János utca")
                 .address("Budapest, Bajcsy-Zsilinszky út 25, 1065")
+                .vehicleNumber(3)
+                .vehicleType(VehicleType.METRO)
                 .build();
 
     }
@@ -92,8 +103,6 @@ public class AllRepositoryTests {
         return Trip.builder()
                 .journeyStart(LocalDateTime
                         .of(2019,5,17,13,32,15))
-                .vehicleNumber(7)
-                .vehicleType(VehicleType.BUS)
                 .build();
     }
 
