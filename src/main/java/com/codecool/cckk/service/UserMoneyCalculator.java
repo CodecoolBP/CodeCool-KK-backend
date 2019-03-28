@@ -1,13 +1,13 @@
 package com.codecool.cckk.service;
 
 import com.codecool.cckk.model.CckkUser;
-import com.codecool.cckk.model.ReturnMessage;
 import com.codecool.cckk.repository.TripRepository;
 import com.codecool.cckk.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Service;
 
-public class UserMoneyCalculation {
+@Service
+public class UserMoneyCalculator {
 
     @Autowired
     UserRepository userRepository;

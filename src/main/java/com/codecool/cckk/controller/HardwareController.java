@@ -23,7 +23,6 @@ public class HardwareController {
         //TODO: call trip builder and save to db: service.TripBuilder
         //      .saveTripToDb(userCanTravel:boolean,selectedUser:CckkUser,stationId:Long
 
-
         return new ReturnMessage(true, "Nothing happened yet");
     }
 

@@ -45,6 +45,7 @@ public class CckkUser {
             orphanRemoval = true)
     private Set<Trip> trips;
 
+    @Singular
     @OneToMany(cascade = CascadeType.ALL,
     orphanRemoval = true)
     private Set<PrePaidCard> cards;
