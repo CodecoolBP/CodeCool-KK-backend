@@ -4,6 +4,7 @@ import com.codecool.cckk.model.CckkUser;
 
 import com.codecool.cckk.model.station.Station;
 import com.codecool.cckk.model.station.VehicleType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,7 +30,7 @@ public class Trip {
     private VehicleType vehicleType;
     private int vehicleNumber;
 
-
+    @JsonIgnore
     @ManyToOne
     private CckkUser user;
 

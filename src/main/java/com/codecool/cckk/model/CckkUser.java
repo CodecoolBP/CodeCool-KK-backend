@@ -39,6 +39,7 @@ public class CckkUser {
     @Enumerated(EnumType.STRING)
     private Discount discount;
 
+
     @EqualsAndHashCode.Exclude
     @OneToMany(cascade = CascadeType.ALL,
             mappedBy = "user",

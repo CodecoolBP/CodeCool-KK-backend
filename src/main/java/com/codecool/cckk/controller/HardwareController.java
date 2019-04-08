@@ -51,7 +51,7 @@ public class HardwareController {
         for (Station station : stations) {
             if (hwData.getStationId().equals(station.getId())) {
                 if  (isAuthorizedToTravel){
-                    ticketPrice = 350;
+                    ticketPrice = 350; //TODO: it is a magic number, change it with the business logic!
                 }else{
                     ticketPrice = 0;
                 }
@@ -59,6 +59,7 @@ public class HardwareController {
                 tripRepository.save(newTrip);
                 return new ReturnMessage(isAuthorizedToTravel, userWantsToTravel.getEmail() +
                         " is " + isAuthorizedToTravel + " to travel!");
+                //TODO: should be http response!!!
             }
 
         }

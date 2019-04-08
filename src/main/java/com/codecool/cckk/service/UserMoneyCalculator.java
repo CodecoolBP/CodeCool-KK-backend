@@ -37,7 +37,7 @@ public class UserMoneyCalculator {
         }
         try {
             if (cardWasUsed.getBalance() >= singleTripPrice) {
-                cardRepository.setNewBalance(cardWasUsed.getBalance()-350, cardWasUsed.getCardNumber());
+                cardRepository.setNewBalance(cardWasUsed.getBalance()-singleTripPrice, cardWasUsed.getCardNumber());
                 return true;
             }
         } catch (NullPointerException e) {
