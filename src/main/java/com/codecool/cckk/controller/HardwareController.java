@@ -3,7 +3,6 @@ package com.codecool.cckk.controller;
 import com.codecool.cckk.model.CckkUser;
 import com.codecool.cckk.model.HardwareData;
 import com.codecool.cckk.model.ReturnMessage;
-import com.codecool.cckk.model.cards.PrePaidCard;
 import com.codecool.cckk.model.station.Station;
 import com.codecool.cckk.model.trips.Trip;
 import com.codecool.cckk.repository.CardRepository;
@@ -24,7 +23,7 @@ import java.util.List;
 @RequestMapping("/hardware")
 public class HardwareController {
 
-    @Autowired
+    @Autowired  
     UserRepository userRepository;
 
     @Autowired
@@ -35,7 +34,6 @@ public class HardwareController {
 
     @Autowired
     StationRepository stationRepository;
-
 
     @Autowired
     UserMoneyCalculator userMoneyCalculator;
