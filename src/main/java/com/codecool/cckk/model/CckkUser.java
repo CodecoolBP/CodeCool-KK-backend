@@ -2,14 +2,11 @@ package com.codecool.cckk.model;
 
 import com.codecool.cckk.model.cards.PrePaidCard;
 import com.codecool.cckk.model.trips.Trip;
-
 import lombok.*;
 
 import javax.persistence.*;
-import javax.smartcardio.Card;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
