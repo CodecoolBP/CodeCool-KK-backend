@@ -2,7 +2,9 @@ package com.codecool.cckk.controller;
 
 import com.codecool.cckk.model.ReturnMessage;
 import com.codecool.cckk.model.station.Station;
+import com.codecool.cckk.model.trips.Trip;
 import com.codecool.cckk.repository.StationRepository;
+import com.codecool.cckk.repository.TripRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +18,9 @@ public class StationController {
 
     @Autowired
     private StationRepository stationRepository;
+
+    @Autowired
+    private TripRepository tripRepository;
 
     @GetMapping("/list")
     public List<Station> getStations() {
@@ -77,6 +82,12 @@ public class StationController {
         List<Station> storedStations = stationRepository.findAll();
         for (Station storedStation : storedStations) {
             if (storedStation.getId().equals(stationID)) {
+                List<Trip> trips = tripRepository.findAll();
+                for (Trip trip : trips) {
+                    if (trip.getFromStation().equals(storedStation)) {
+                        tripRepository.delete(trip);
+                    }
+                }
                 stationRepository.delete(storedStation);
                 return new ReturnMessage(true, storedStation.toString() + "This station deleted!");
             }
