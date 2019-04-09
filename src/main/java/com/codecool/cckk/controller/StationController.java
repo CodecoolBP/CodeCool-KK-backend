@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.LinkedList;
 import java.util.List;
 
 @RestController
@@ -60,30 +59,22 @@ public class StationController {
 
     @PostMapping("/adds")
     public ResponseEntity<?> addStations(@RequestBody @Valid List<Station> incomingStations) {
-        List<Station> addedStation = new LinkedList<>();
-        for (Station incomingStation : incomingStations) {
-            if (!stationService.stationIsExists(incomingStation)) {
-                addedStation.add(incomingStation);
-                stationRepository.save(incomingStation);
-            }
+        List<Station> addedStation = stationService.fillStation(incomingStations);
+        if (addedStation.isEmpty()) {
+            return new ResponseEntity<>("Unable to create. All station is already exists!",
+                    HttpStatus.CONFLICT);
         }
         return new ResponseEntity<>(addedStation, HttpStatus.CREATED);
     }
 
     @PutMapping("/update/{stationID}")
-    public ReturnMessage updateStation(@PathVariable("stationID") Long stationID, @RequestBody Station station) {
-        List<Station> storedStations = stationRepository.findAll();
-        for (Station storedStation : storedStations) {
-            if (storedStation.getId().equals(stationID)) {
-                storedStation.setName(station.getName());
-                storedStation.setVehicleType(station.getVehicleType());
-                storedStation.setVehicleNumber(station.getVehicleNumber());
-                storedStation.setAddress(station.getAddress());
-                stationRepository.save(storedStation);
-                return new ReturnMessage(true, "Update is successful!");
-            }
+    public ResponseEntity<?> updateStation(@PathVariable("stationID") Long stationID, @RequestBody Station station) {
+        Station updatedStation = stationService.updateStation(stationID, station);
+        if (updatedStation == null) {
+            return new ResponseEntity<>("Unable to update. A station is not exists!",
+                    HttpStatus.NOT_FOUND);
         }
-        return new ReturnMessage(false, "Update isn't successful, because not matches!");
+        return new ResponseEntity<>(updatedStation, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{stationID}")
