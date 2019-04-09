@@ -5,10 +5,14 @@ import com.codecool.cckk.model.station.Station;
 import com.codecool.cckk.model.trips.Trip;
 import com.codecool.cckk.repository.StationRepository;
 import com.codecool.cckk.repository.TripRepository;
+import com.codecool.cckk.service.StationService;
+import com.codecool.cckk.util.CustomErrorType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -18,11 +22,24 @@ import java.util.List;
 //@CrossOrigin(origins = "http://localhost:4200")
 public class StationController {
 
-    @Autowired
     private StationRepository stationRepository;
+    private TripRepository tripRepository;
+    private StationService stationService;
 
     @Autowired
-    private TripRepository tripRepository;
+    public void setStationRepository(StationRepository stationRepository) {
+        this.stationRepository = stationRepository;
+    }
+
+    @Autowired
+    public void setTripRepository(TripRepository tripRepository) {
+        this.tripRepository = tripRepository;
+    }
+
+    @Autowired
+    public void setStationService(StationService stationService) {
+        this.stationService = stationService;
+    }
 
     @GetMapping("/list")
     public ResponseEntity<List<Station>> getStations() {
@@ -34,15 +51,14 @@ public class StationController {
     }
 
     @PostMapping("/add")
-    public ReturnMessage addStation(@RequestBody @Valid Station incomingStation) {
-        if (!stationIsExists(incomingStation)) {
-            stationRepository.save(incomingStation);
-            return new ReturnMessage(true, "This station was saved!");
-        } else if (stationIsExists(incomingStation)) {
-            return new ReturnMessage(false, "This station already exists!!");
-        } else {
-            return new ReturnMessage(false, "Something went wrong!");
+    public ResponseEntity<?> addStation(@RequestBody @Valid Station incomingStation) {
+        if (stationService.stationIsExists(incomingStation)) {
+            return new ResponseEntity<>(new CustomErrorType(
+                    "Unable to create. A station is already exists!"),
+                    HttpStatus.CONFLICT);
         }
+        stationRepository.save(incomingStation);
+        return new ResponseEntity<>(incomingStation, HttpStatus.CREATED);
     }
 
     @PostMapping("/adds")
