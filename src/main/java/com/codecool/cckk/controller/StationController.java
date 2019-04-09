@@ -6,6 +6,8 @@ import com.codecool.cckk.model.trips.Trip;
 import com.codecool.cckk.repository.StationRepository;
 import com.codecool.cckk.repository.TripRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -23,8 +25,12 @@ public class StationController {
     private TripRepository tripRepository;
 
     @GetMapping("/list")
-    public List<Station> getStations() {
-        return stationRepository.findAll();
+    public ResponseEntity<List<Station>> getStations() {
+        List<Station> stations = stationRepository.findAll();
+        if (stations.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(stations, HttpStatus.OK);
     }
 
     @PostMapping("/add")
