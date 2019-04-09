@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @RestController
@@ -62,25 +64,15 @@ public class StationController {
     }
 
     @PostMapping("/adds")
-    public ReturnMessage addStations(@RequestBody @Valid List<Station> incomingStations) {
-        int saved = 0;
-        int exists = 0;
-
+    public ResponseEntity<?> addStations(@RequestBody @Valid List<Station> incomingStations) {
+        List<Station> addedStation = new LinkedList<>();
         for (Station incomingStation : incomingStations) {
-            if (!stationIsExists(incomingStation)) {
-                saved++;
+            if (!stationService.stationIsExists(incomingStation)) {
+                addedStation.add(incomingStation)
                 stationRepository.save(incomingStation);
-            } else if (stationIsExists(incomingStation)) {
-                exists++;
-            } else {
-                return new ReturnMessage(false, "Something went wrong!");
             }
         }
-        if (saved == 0) {
-            return new ReturnMessage(false, "Save: " + saved + ", exists: " + exists);
-        } else {
-            return new ReturnMessage(true, "Save: " + saved + ", exists: " + exists);
-        }
+        return new ResponseEntity<>(addedStation, HttpStatus.CREATED);
     }
 
     @PutMapping("/update/{stationID}")
