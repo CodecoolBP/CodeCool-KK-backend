@@ -19,7 +19,7 @@ import java.util.List;
 //@CrossOrigin(origins = "http://localhost:4200")
 public class StationController {
 
-    public static final Logger logger = LoggerFactory.getLogger(StationController.class);
+    private static final Logger logger = LoggerFactory.getLogger(StationController.class);
 
     private StationRepository stationRepository;
     private TripRepository tripRepository;
