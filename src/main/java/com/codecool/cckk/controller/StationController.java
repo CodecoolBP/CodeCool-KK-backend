@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/station")
-//@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200")
 public class StationController {
 
     private static final Logger logger = LoggerFactory.getLogger(StationController.class);
@@ -54,14 +54,14 @@ public class StationController {
 
     @PostMapping("/add")
     public ResponseEntity<?> createStation(@RequestBody @Valid Station incomingStation) {
-        logger.info("Creating a new Station.");
+        logger.info("Creating a new Station...");
         if (stationService.stationIsExists(incomingStation)) {
             logger.warn("Unable to create. A station is already exists!");
             return new ResponseEntity<>("Unable to create. A station is already exists!",
                     HttpStatus.CONFLICT);
         }
         stationRepository.save(incomingStation);
-        logger.info("Create is SUCCESSFUL.");
+        logger.info("Create is SUCCESSFUL. New station: " + incomingStation.getName());
         return new ResponseEntity<>(incomingStation, HttpStatus.CREATED);
     }
 
@@ -83,7 +83,7 @@ public class StationController {
     @PutMapping("/update/{stationID}")
     public ResponseEntity<?> updateStation(@PathVariable("stationID") Long stationID, @RequestBody Station station) {
         String updatedStationCondition = stationService.updateStation(stationID, station);
-        logger.info("Updating station.");
+        logger.info("Updating station...");
         if (updatedStationCondition == null) {
             logger.warn("Unable to update. A station is not exists. Stations ID: " + stationID);
             return new ResponseEntity<>("Unable to update. A station is not exists!",
@@ -101,7 +101,7 @@ public class StationController {
     @DeleteMapping("/delete/{stationID}")
     public ResponseEntity<?> deleteStation(@PathVariable("stationID") Long stationID) {
         Station deletedStation = stationService.deleteStation(stationID);
-        logger.info("Deleting stations.");
+        logger.info("Deleting stations...");
         if (deletedStation == null) {
             logger.warn("Unable to delete. A station is not exists! Station ID: " + stationID);
             return new ResponseEntity<>("Unable to delete. A station is not exists!",
