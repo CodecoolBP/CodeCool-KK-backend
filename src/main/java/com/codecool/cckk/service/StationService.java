@@ -51,16 +51,32 @@ public class StationService {
         return addedStation;
     }
 
-    public Station updateStation(Long stationID, Station station) {
+    public String updateStation(Long stationID, Station station) {
         List<Station> storedStations = stationRepository.findAll();
         for (Station storedStation : storedStations) {
             if (storedStation.getId().equals(stationID)) {
+                if (storedStation.getName().equals(station.getName()) &
+                    storedStation.getName().equals(station.getName()) &
+                    storedStation.getVehicleType().equals(station.getVehicleType()) &
+                    storedStation.getVehicleNumber() == storedStation.getVehicleNumber()) {
+                    return "Unable to update. The data is the same!";
+                }
                 storedStation.setName(station.getName());
                 storedStation.setVehicleType(station.getVehicleType());
                 storedStation.setVehicleNumber(station.getVehicleNumber());
                 storedStation.setAddress(station.getAddress());
                 stationRepository.save(storedStation);
-                return storedStation;
+                return "Updated!";
+            }
+        }
+        return null;
+    }
+
+    public Station findStation (Long stationID) {
+        List<Station> stations = stationRepository.findAll();
+        for (Station station : stations) {
+            if (station.getId().equals(stationID)) {
+                return station;
             }
         }
         return null;
