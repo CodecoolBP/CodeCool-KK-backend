@@ -78,36 +78,12 @@ public class StationController {
     }
 
     @DeleteMapping("/delete/{stationID}")
-    public ReturnMessage deleteStation(@PathVariable("stationID") Long stationID) {
-        List<Station> storedStations = stationRepository.findAll();
-        for (Station storedStation : storedStations) {
-            if (storedStation.getId().equals(stationID)) {
-                List<Trip> trips = tripRepository.findAll();
-                for (Trip trip : trips) {
-                    if (trip.getFromStation().equals(storedStation)) {
-                        tripRepository.delete(trip);
-                    }
-                }
-                stationRepository.delete(storedStation);
-                return new ReturnMessage(true, storedStation.toString() + "This station deleted!");
-            }
+    public ResponseEntity<?> deleteStation(@PathVariable("stationID") Long stationID) {
+        Station deletedStation = stationService.deleteStation(stationID);
+        if (deletedStation == null) {
+            return new ResponseEntity<>("Unable to delete. A station is not exists!",
+                    HttpStatus.NOT_FOUND);
         }
-
-        return new ReturnMessage(false, "This station doesn't exists!");
-    }
-
-
-
-    private boolean stationIsExists(Station incomingStation) {
-        List<Station> storedStations = stationRepository.findAll();
-        for (Station storedStation : storedStations) {
-            if (incomingStation.getName().equals(storedStation.getName()) &
-                incomingStation.getAddress().equals(storedStation.getAddress()) &
-                incomingStation.getVehicleType().equals(storedStation.getVehicleType()) &
-                incomingStation.getVehicleNumber() == storedStation.getVehicleNumber()) {
-                return true;
-            }
-        }
-        return false;
+        return new ResponseEntity<>(deletedStation, HttpStatus.OK);
     }
 }
