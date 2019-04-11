@@ -2,7 +2,6 @@ package com.codecool.cckk.controller;
 
 import com.codecool.cckk.model.station.Station;
 import com.codecool.cckk.repository.StationRepository;
-import com.codecool.cckk.repository.TripRepository;
 import com.codecool.cckk.service.StationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,17 +21,11 @@ public class StationController {
     private static final Logger logger = LoggerFactory.getLogger(StationController.class);
 
     private StationRepository stationRepository;
-    private TripRepository tripRepository;
     private StationService stationService;
 
     @Autowired
     public void setStationRepository(StationRepository stationRepository) {
         this.stationRepository = stationRepository;
-    }
-
-    @Autowired
-    public void setTripRepository(TripRepository tripRepository) {
-        this.tripRepository = tripRepository;
     }
 
     @Autowired

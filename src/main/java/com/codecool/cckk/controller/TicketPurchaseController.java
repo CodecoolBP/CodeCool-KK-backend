@@ -1,6 +1,7 @@
 package com.codecool.cckk.controller;
 
 import com.codecool.cckk.model.trips.Trip;
+import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/purchase")
+@CrossOrigin(origins = "http://localhost:4200")
 public class TicketPurchaseController {
 
     private static final Logger logger = LoggerFactory.getLogger(TicketPurchaseController.class);
