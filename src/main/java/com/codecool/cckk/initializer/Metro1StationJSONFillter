@@ -1,0 +1,73 @@
+I. Run project
+II. Open Postman
+III. Send this JSON on this port:
+        http://localhost:8080/station/adds
+
+[
+    {
+        "name" : "Vörösmarty tér",
+        "vehicleType" : "METRO",
+        "vehicleNumber" : "1",
+        "address" : "V. Vörösmarty tér"
+    },
+    {
+        "name" : "Deák Ferenc tér",
+        "vehicleType" : "METRO",
+        "vehicleNumber" : "1",
+        "address" : "V. Deák Ferenc tér"
+    },
+    {
+        "name" : "Bajcsy-Zsilinszky út",
+        "vehicleType" : "METRO",
+        "vehicleNumber" : "1",
+        "address" : "VI. Andrássy út 3."
+    },
+    {
+        "name" : "Opera",
+        "vehicleType" : "METRO",
+        "vehicleNumber" : "1",
+        "address" : "VI. Andrássy út 25."
+    },
+    {
+        "name" : "Oktogon",
+        "vehicleType" : "METRO",
+        "vehicleNumber" : "1",
+        "address" : "VI. Oktogon"
+    },
+    {
+        "name" : "Vörösmarty utca",
+        "vehicleType" : "METRO",
+        "vehicleNumber" : "1",
+        "address" : "VI. Andrássy út 66."
+    },
+    {
+        "name" : "Kodály körönd",
+        "vehicleType" : "METRO",
+        "vehicleNumber" : "1",
+        "address" : "VI. Andrássy út 80-85."
+    },
+    {
+        "name" : "Bajza utca",
+        "vehicleType" : "METRO",
+        "vehicleNumber" : "1",
+        "address" : "VI. Andrássy út 100-105."
+    },
+    {
+        "name" : "Hősök tere",
+        "vehicleType" : "METRO",
+        "vehicleNumber" : "1",
+        "address" : "XIV. Hősök tere"
+    },
+    {
+        "name" : "Széchenyi fürdő",
+        "vehicleType" : "METRO",
+        "vehicleNumber" : "1",
+        "address" : "XIV. Városliget"
+    },
+    {
+        "name" : "Mexikói út",
+        "vehicleType" : "METRO",
+        "vehicleNumber" : "1",
+        "address" : "XIV. Horvát Boldizsár utca 1."
+    }
+]
