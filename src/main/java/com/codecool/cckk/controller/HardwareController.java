@@ -31,11 +31,11 @@ public class HardwareController {
 
     private static final Logger logger = LoggerFactory.getLogger(HardwareController.class);
 
-    UserRepository userRepository;
-    CardRepository cardRepository;
-    TripRepository tripRepository;
-    StationRepository stationRepository;
-    UserMoneyCalculator userMoneyCalculator;
+    private UserRepository userRepository;
+    private CardRepository cardRepository;
+    private TripRepository tripRepository;
+    private StationRepository stationRepository;
+    private UserMoneyCalculator userMoneyCalculator;
 
     @Autowired
     public void setUserRepository(UserRepository userRepository) {
@@ -77,7 +77,7 @@ public class HardwareController {
                 } else {
                     ticketPrice = 0;
                 }
-                Trip newTrip = buildTrip(station, userWantsToTravel, isAuthorizedToTravel, ticketPrice);
+                Trip newTrip = userMoneyCalculator.buildTrip(station, userWantsToTravel, isAuthorizedToTravel, ticketPrice);
                 tripRepository.save(newTrip);
                 logger.info(isAuthorizedToTravel + " " + userWantsToTravel.getEmail() +
                         " is " + isAuthorizedToTravel + " to travel!");
@@ -92,19 +92,4 @@ public class HardwareController {
         //TODO: call trip builder and save to db: service.TripBuilder
         //      .saveTripToDb(userCanTravel:boolean,selectedUser:CckkUser,stationId:Long
     }
-
-
-    private Trip buildTrip(Station station, CckkUser user, boolean isValid, int ticketprice) {
-        Trip newTrip = Trip.builder()
-                .fromStation(station)
-                .journeyStart(LocalDateTime.now())
-                .vehicleType(station.getVehicleType())
-                .vehicleNumber(station.getVehicleNumber())
-                .price(ticketprice)
-                .user(user)
-                .success(isValid)
-                .build();
-        return newTrip;
-    }
-
 }

@@ -2,6 +2,8 @@ package com.codecool.cckk.service;
 
 import com.codecool.cckk.model.CckkUser;
 import com.codecool.cckk.model.cards.PrePaidCard;
+import com.codecool.cckk.model.station.Station;
+import com.codecool.cckk.model.trips.Trip;
 import com.codecool.cckk.repository.CardRepository;
 import com.codecool.cckk.repository.TripRepository;
 import com.codecool.cckk.repository.UserRepository;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 
@@ -54,9 +57,20 @@ public class UserMoneyCalculator {
             System.err.println("invalid card number");
             return false;
         }
-
         return false;
+    }
 
+    public Trip buildTrip(Station station, CckkUser user, boolean isValid, int ticketprice) {
+        Trip newTrip = Trip.builder()
+                .fromStation(station)
+                .journeyStart(LocalDateTime.now())
+                .vehicleType(station.getVehicleType())
+                .vehicleNumber(station.getVehicleNumber())
+                .price(ticketprice)
+                .user(user)
+                .success(isValid)
+                .build();
+        return newTrip;
     }
 
 
