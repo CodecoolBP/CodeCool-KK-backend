@@ -3,13 +3,11 @@ package com.codecool.cckk.controller;
 
 import com.codecool.cckk.model.ReturnMessage;
 import com.codecool.cckk.model.trips.Trip;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/purchase")
+@CrossOrigin(origins = "http://localhost:4200")
 public class TicketPurchaseController {
 
 

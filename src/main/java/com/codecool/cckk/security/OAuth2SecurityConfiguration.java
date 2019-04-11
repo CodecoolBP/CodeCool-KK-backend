@@ -28,7 +28,7 @@ public class OAuth2SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "http://localhost:8080"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "http://localhost:8080", "http://localhost:4200"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST"));
         configuration.setAllowCredentials(true);
         configuration.addAllowedHeader("Authorization");
@@ -44,7 +44,7 @@ public class OAuth2SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .forRS256(apiAudience, issuer)
                 .configure(http)
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/hardware/query").authenticated()
+                .antMatchers(HttpMethod.GET, "/hardware/query").permitAll()
                 .antMatchers(HttpMethod.GET, "/station/list").authenticated()
                 .antMatchers(HttpMethod.POST, "/station/add").authenticated()
                 .antMatchers(HttpMethod.POST, "/station/adds").authenticated()
@@ -55,4 +55,6 @@ public class OAuth2SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/user/add").permitAll()
                 .antMatchers(HttpMethod.POST, "/user/login").permitAll();
     }
+
+
 }
