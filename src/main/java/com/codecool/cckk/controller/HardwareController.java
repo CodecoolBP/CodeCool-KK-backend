@@ -10,7 +10,15 @@ import com.codecool.cckk.repository.StationRepository;
 import com.codecool.cckk.repository.TripRepository;
 import com.codecool.cckk.repository.UserRepository;
 import com.codecool.cckk.service.UserMoneyCalculator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -21,23 +29,41 @@ import java.util.List;
 @RequestMapping("/hardware")
 public class HardwareController {
 
-    @Autowired  
+    private static final Logger logger = LoggerFactory.getLogger(HardwareController.class);
+
     UserRepository userRepository;
-
-    @Autowired
     CardRepository cardRepository;
-
-    @Autowired
     TripRepository tripRepository;
-
-    @Autowired
     StationRepository stationRepository;
-
-    @Autowired
     UserMoneyCalculator userMoneyCalculator;
 
+    @Autowired
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    @Autowired
+    public void setCardRepository(CardRepository cardRepository) {
+        this.cardRepository = cardRepository;
+    }
+
+    @Autowired
+    public void setTripRepository(TripRepository tripRepository) {
+        this.tripRepository = tripRepository;
+    }
+
+    @Autowired
+    public void setStationRepository(StationRepository stationRepository) {
+        this.stationRepository = stationRepository;
+    }
+
+    @Autowired
+    public void setUserMoneyCalculator(UserMoneyCalculator userMoneyCalculator) {
+        this.userMoneyCalculator = userMoneyCalculator;
+    }
+
     @PostMapping("/try-trip")
-    public ReturnMessage responseToOnSiteScanner(@RequestBody HardwareData hwData) {
+    public ResponseEntity<?> responseToOnSiteScanner(@RequestBody HardwareData hwData) {
         List<Station> stations = stationRepository.findAll();
 
         CckkUser userWantsToTravel = userRepository.findUserByCardNumber(hwData.getCardNumber());
@@ -46,25 +72,25 @@ public class HardwareController {
 
         for (Station station : stations) {
             if (hwData.getStationId().equals(station.getId())) {
-                if  (isAuthorizedToTravel){
+                if (isAuthorizedToTravel){
                     ticketPrice = 350; //TODO: it is a magic number, change it with the business logic!
-                }else{
+                } else {
                     ticketPrice = 0;
                 }
                 Trip newTrip = buildTrip(station, userWantsToTravel, isAuthorizedToTravel, ticketPrice);
                 tripRepository.save(newTrip);
-                return new ReturnMessage(isAuthorizedToTravel, userWantsToTravel.getEmail() +
+                logger.info(isAuthorizedToTravel + " " + userWantsToTravel.getEmail() +
                         " is " + isAuthorizedToTravel + " to travel!");
-                //TODO: should be http response!!!
+                return new ResponseEntity<>(isAuthorizedToTravel + " " + userWantsToTravel.getEmail() +
+                        " is " + isAuthorizedToTravel + " to travel!", HttpStatus.CREATED);
             }
-
         }
-        return new ReturnMessage(false, "Something went wrong!");
+        logger.warn("Something went wrong!");
+        return new ResponseEntity<>("Something went wrong!", HttpStatus.CONFLICT);
 
         //TODO: check if user is authorized for travel: service.UserMoneyCalculation.checkIfUserCanTravel()
         //TODO: call trip builder and save to db: service.TripBuilder
         //      .saveTripToDb(userCanTravel:boolean,selectedUser:CckkUser,stationId:Long
-
     }
 
 

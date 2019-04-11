@@ -15,14 +15,24 @@ import java.util.*;
 @Service
 public class UserMoneyCalculator {
 
-    @Autowired
     UserRepository userRepository;
-
-    @Autowired
     TripRepository tripRepository;
+    CardRepository cardRepository;
 
     @Autowired
-    CardRepository cardRepository;
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    @Autowired
+    public void setTripRepository(TripRepository tripRepository) {
+        this.tripRepository = tripRepository;
+    }
+
+    @Autowired
+    public void setCardRepository(CardRepository cardRepository) {
+        this.cardRepository = cardRepository;
+    }
 
     public boolean checkIfUserCanTravel(CckkUser user, Long cardNumberUsed) {
         //TODO: user has purchased pass
