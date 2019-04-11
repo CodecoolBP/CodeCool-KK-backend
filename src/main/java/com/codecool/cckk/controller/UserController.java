@@ -50,8 +50,8 @@ public class UserController {
     public ResponseEntity<?> addUser(@RequestBody @Valid CckkUser incomingUser) {
         logger.info("Creating a new User...");
         if (userService.emailIsExists(incomingUser)) {
-            logger.warn("Unable to create. A user is already exists!");
-            return new ResponseEntity<>("Unable to create. A user is already exists!", HttpStatus.CONFLICT);
+            logger.warn("Unable to create. A user already exists!");
+            return new ResponseEntity<>("Unable to create. A user already exists!", HttpStatus.CONFLICT);
         }
         userRepository.save(incomingUser);
         logger.info("Create is SUCCESSFUL. New User e-mail: " + incomingUser.getEmail());
@@ -61,13 +61,14 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody CckkUser loginUser){
         logger.info("Logging " + loginUser.getEmail() + " ...");
+        String errorBody = "Incorrect e-mail address or password.";
         if (!userService.emailIsExists(loginUser)) {
             logger.warn("Unable to login. This email address is not in the database!");
-            return new ResponseEntity<>("Incorrect e-mail address.", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(errorBody, HttpStatus.FORBIDDEN);
         }
         if (!userService.passwordIsMatches(loginUser)) {
             logger.warn("Unable to login. This password is incorrect!");
-            return new ResponseEntity<>("Incorrect password.", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(errorBody, HttpStatus.FORBIDDEN);
         }
         logger.info("Login is SUCCESSFUL. E-mail: " + loginUser.getEmail());
         return new ResponseEntity<>(loginUser, HttpStatus.OK);
