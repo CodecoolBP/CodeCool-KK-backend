@@ -2,6 +2,7 @@ package com.codecool.cckk;
 
 import com.codecool.cckk.model.CckkUser;
 import com.codecool.cckk.model.Discount;
+import com.codecool.cckk.model.cards.PrePaidCard;
 import com.codecool.cckk.model.station.Station;
 import com.codecool.cckk.model.station.VehicleType;
 import com.codecool.cckk.model.trips.Trip;
@@ -28,12 +29,18 @@ public class CCKKBackendApplication {
     @Bean
     public CommandLineRunner init() {
         return args -> {
+            PrePaidCard testCard = PrePaidCard.builder()
+                    .balance(1000)
+                    .cardNumber(12345678L)
+                    .build();
+
             CckkUser testUser = CckkUser.builder()
                     .email("test@gmail.com")
                     .password("test")
                     .firstName("test")
                     .lastName("test")
                     .discount(Discount.FULL_PRICE)
+                    .card(testCard)
                     .build();
 
             Station testStation = Station.builder()
